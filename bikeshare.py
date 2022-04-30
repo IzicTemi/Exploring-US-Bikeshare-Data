@@ -8,6 +8,30 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+def check_data_entry(prompt, valid_entries): 
+    """
+    Asks user to type some input and verify if the entry typed is valid.
+    Since we have 3 inputs to ask the user in get_filters(), it is easier to write a function.
+    Args:
+        (str) prompt - message to display to the user
+        (list) valid_entries - list of string that should be accepted 
+    Returns:
+        (str) user_input - the user's valid input
+    """
+    try:
+        user_input = str(input(prompt)).lower()
+
+        while user_input not in valid_entries : 
+            print('Sorry... it seems like you\'re not typing a correct entry.')
+            print('Let\'s try again!')
+            user_input = str(input(prompt)).lower()
+
+        print('Great! the chosen entry is: {}\n'.format(user_input))
+        return user_input
+
+    except:
+        print('Seems like there is an issue with your input')
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -19,77 +43,35 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    while True:
-        try:
-            city = input('\nInput the city you want to explore from Chicago, New York City, Washington: ').lower()
-            if city not in ['chicago', 'new york city', 'washington']:
-                raise Exception
-            break
-        except KeyboardInterrupt:
-            break
-        except:
-            print('\nInput a valid city')
-        
-    while True:
-        try:
-            filters = input('\nDo you want to filter by day, month, both or none: ')
-            if filters not in ['day', 'month', 'both', 'none']:
-                raise Exception
-            break
-        except KeyboardInterrupt:
-            break
-        except:
-            print('\nInput a valid option')        
+    valid_cities = CITY_DATA.keys()
+    prompt_cities = 'Please choose one of the 3 cities (chicago, new york city, washington): '
+    city = check_data_entry(prompt_cities, valid_cities)
 
+    valid_filters = ['day', 'month', 'both', 'none']
+    prompt_filters = 'Do you want to filter by day, month, both or none:  '
+    filters = check_data_entry(prompt_filters, valid_filters)    
+            
     # TO DO: get user input for month (all, january, february, ... , june)
     if filters == 'month':
-        while True:
-            try:
-                month = input('\nInput the month you want to view from January, February, ... , June: ').lower()
-                if month not in ['january', 'february', 'march', 'april', 'may' , 'june']:
-                    raise Exception
-                break
-            except KeyboardInterrupt:
-                break
-            except:
-                print('Pls input a valid month')
+        valid_months = ['all','january','february','march','april','may','june']
+        prompt_month = 'Please choose a month (all, january, february, ... , june): '
+        month = check_data_entry(prompt_month, valid_months)
         
         day = 'all'
     elif filters == 'day':
-        while True:
-            try:
-                day = input('Pls input the day you want to explore from Monday, Tuesday, ... , Sunday: ').lower()
-                if day not in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday' , 'saturday', 'sunday']:
-                    raise Exception
-                break
-            except KeyboardInterrupt:
-                break
-            except:
-                print('Pls input a valid day')
+        valid_days = ['all','monday','tuesday','wednesday','thursday','friday','saturday', 'sunday']
+        prompt_day = 'Please choose a day (all, monday, tuesday, ... sunday): '
+        day = check_data_entry(prompt_day, valid_days)
         
         month = 'all'
     elif filters == 'both':
-        while True:
-            try:
-                month = input('Pls input the month you want to view from all, january, february, ... , june: ').lower()
-                if month not in ['all', 'january', 'february', 'march', 'april', 'may' , 'june']:
-                    raise Exception
-                break
-            except KeyboardInterrupt:
-                break
-            except:
-                print('Pls input a valid month')
-        
-        while True:
-            try:
-                day = input('Pls input the day you want to explore from all, monday, tuesday, ... , sunday: ').lower()
-                if day not in ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday' , 'saturday', 'sunday']:
-                    raise Exception
-                break
-            except KeyboardInterrupt:
-                break
-            except:
-                print('Pls input a valid day')
+        valid_days = ['all','monday','tuesday','wednesday','thursday','friday','saturday', 'sunday']
+        prompt_day = 'Please choose a day (all, monday, tuesday, ... sunday): '
+        day = check_data_entry(prompt_day, valid_days)
+
+        valid_months = ['all','january','february','march','april','may','june']
+        prompt_month = 'Please choose a month (all, january, february, ... , june): '
+        month = check_data_entry(prompt_month, valid_months)
         
     else:
         day, month = 'all', 'all'
