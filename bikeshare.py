@@ -1,6 +1,7 @@
 import time
 import pandas as pd
 import numpy as np
+from tabulate import tabulate
 
 months = ['january', 'february', 'march', 'april', 'may', 'june']
 CITY_DATA = { 'chicago': 'chicago.csv',
@@ -255,7 +256,7 @@ def main():
         while True:
             view_data = print_data(df)  
             if view_data == 'yes':
-                print(df.iloc[n:n+5])
+                print(tabulate(df.iloc[np.arange(0+n,5+n)], headers ="keys"))
             
             else:
                 break
