@@ -14,11 +14,15 @@ Script takes in raw input to create an interactive experience in the terminal to
 ### Files used
 [bikeshare.py](bikeshare.py)
 
+[requirements.txt](requirements.txt)
 
 ### Running the program
 Clone the repository and cd into the cloned repo
 
 Make sure to have python setup and added to Path
+
+#### Install Dependencies
+pip install -r requirements.txt
 
 #### Run command
 python bikeshare.py
